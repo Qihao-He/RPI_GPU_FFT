@@ -16,21 +16,21 @@ S = hex/shader_256.hex \
 
 C = mailbox.c gpu_fft.c gpu_fft_base.c gpu_fft_twiddles.c gpu_fft_shaders.c
 
-C1D = $(C) qh_t4_hello_fft.c
-C2D = $(C) qh_t3_hello_fft_2d.c gpu_fft_trans.c
+C1D = $(C) 1d_hello_fft_t4.c
+C2D = $(C) 2d_hello_fft_t3.c gpu_fft_trans.c
 
 H1D = gpu_fft.h mailbox.h
 H2D = gpu_fft.h mailbox.h gpu_fft_trans.h hello_fft_2d_bitmap.h
 
 F = -lrt -lm -ldl
 
-all:	qh_t4_hello_fft.bin qh_t3_hello_fft_2d.bin
+all:	1d_hello_fft_t4.bin 2d_hello_fft_t3.bin
 
-qh_t4_hello_fft.bin:	$(S) $(C1D) $(H1D)
-	gcc -o qh_t4_hello_fft.bin $(F) $(C1D)
+1d_hello_fft_t4.bin:	$(S) $(C1D) $(H1D)
+	gcc -o 1d_hello_fft_t4.bin $(F) $(C1D)
 
-qh_t3_hello_fft_2d.bin:	$(S) hex/shader_trans.hex $(C2D) $(H2D)
-	gcc -o qh_t3_hello_fft_2d.bin $(F) $(C2D)
+2d_hello_fft_t3.bin:	$(S) hex/shader_trans.hex $(C2D) $(H2D)
+	gcc -o 2d_hello_fft_t3.bin $(F) $(C2D)
 
 clean:
 	rm -f *.bin
